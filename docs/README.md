@@ -33,6 +33,17 @@ server {
 }
 ```
 
+- Start all services and Enable service after reboot
+
+```
+service docker start
+service nginx start
+chkconfig docker on
+chkconfig nginx on
+```
+
+## Setup Jenkins
+
 - Add jenkins user to docker
 
 ```
@@ -58,12 +69,8 @@ update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-1.8.0-openjdk
 - Start all services and Enable service after reboot
 
 ```
-service docker start
 service jenkins start
-service nginx start
-chkconfig docker on
 chkconfig jenkins on
-chkconfig nginx on
 ```
 
 ### Setup Jenkins admin pass
