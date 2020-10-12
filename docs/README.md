@@ -50,7 +50,7 @@ export PATH=/usr/lib/jvm/java-1.8.0-openjdk/bin:$PATH
 PATH=/usr/lib/jvm/java-1.8.0-openjdk/bin:$PATH:$HOME/bin
 ```
 
-# Overwrite Java alternative /usr/bin/java
+### Overwrite Java alternative /usr/bin/java
 ``
 update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-1.8.0-openjdk/bin/java 2082
 ``
@@ -66,5 +66,5 @@ chkconfig jenkins on
 chkconfig nginx on
 ```
 
-# Setup Jenkins admin pass
+### Setup Jenkins admin pass
 cat /var/lib/jenkins/secrets/initialAdminPassword
