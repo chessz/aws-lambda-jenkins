@@ -4,7 +4,7 @@ pipeline {
         stage('repo clean & download Truffle Hog') {
             steps {
                step([$class: 'WsCleanup'])
-               sh "docker pull dxa4481/trufflehog
+               sh "docker pull dxa4481/trufflehog"
             }
         }
         stage('scanning') {
