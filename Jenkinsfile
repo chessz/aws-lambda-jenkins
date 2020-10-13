@@ -22,6 +22,7 @@ pipeline {
                 sh "echo package it!!!"
             }
         }
+    }
     post {
         cleanup {
             /* clean up our workspace */
@@ -35,6 +36,5 @@ pipeline {
                 deleteDir()
             }
         }
-    }
     }
 }
