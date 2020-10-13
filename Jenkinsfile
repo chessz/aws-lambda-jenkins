@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('repo clean & download Truffle Hog') {
             steps {
-               sh "rm -rf security-scanner-pipeline"
+               step([$class: 'WsCleanup'])
                sh "docker pull dxa4481/trufflehog
             }
         }
