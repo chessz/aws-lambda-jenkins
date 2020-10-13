@@ -19,17 +19,17 @@ pipeline {
         }
     }
     post {
-        cleanup {
-            /* clean up our workspace */
-            deleteDir()
-            /* clean up tmp directory */
-            dir("${workspace}@tmp") {
-                deleteDir()
-            }
-            /* clean up script directory */
-            dir("${workspace}@script") {
-                deleteDir()
-            }
+        failure {
+        mail to: 'mzul@pm.me',
+             subject: "Secrets found in repo: ${currentBuild.fullDisplayName}",
+             body: "Please review this pipeline and repository urgently! : ${env.BUILD_URL}"
+        }
+        always {
+            echo 'Housekeeping Duty'
+            deleteDir() /* clean up our workspace */
+        }
+        success {
+            echo 'No secrets founds. Well Done!'
         }
     }
 }
