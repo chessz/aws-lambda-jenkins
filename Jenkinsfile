@@ -4,13 +4,12 @@ pipeline {
         stage('repo clean & download Truffle Hog') {
             steps {
                sh "rm -rf security-scanner-pipeline"
-               sh "git clone https://github.com/dxa4481/truffleHog.git"
-               sh "echo Downloaded!!!"
+               sh "docker pull dxa4481/trufflehog
             }
         }
-        stage('install') {
+        stage('scanning') {
             steps {
-                sh "echo 'lets run install'"
+                sh "docker run --rm -v `pwd`:/proj dxa4481/trufflehog --regex --entropy=False https://github.com/dxa4481/truffleHog"
             }
         }
         stage('test') {
