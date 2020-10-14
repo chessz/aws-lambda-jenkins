@@ -42,18 +42,11 @@ pipeline {
         }
         stage('TruffleHog Scanning..') {
             steps {
-               // get repo URL
-               try{
-                  GIT_REPO_URL = null
-                  command = "grep -oP '(?<=url>)[^<]+' /var/lib/jenkins/jobs/${JOB_NAME}/config.xml"
-                  GIT_REPO_URL = sh(returnStdout: true, script: command).trim();
-                  echo "Detected Git Repo URL: ${GIT_REPO_URL}"  
-               }
-               catch(err){
-                  throw err
-                  error "Could not find any Git repository for the job ${JOB_NAME}"
-               } 
-               echo $GIT_REPO_URL
+               GIT_REPO_URL = null
+               command = "grep -oP '(?<=url>)[^<]+' /var/lib/jenkins/jobs/${JOB_NAME}/config.xml"
+               GIT_REPO_URL = sh(returnStdout: true, script: command).trim();
+               echo "Detected Git Repo URL: ${GIT_REPO_URL}"  
+
                sh "docker run --rm -v `pwd`:/proj dxa4481/trufflehog --regex --entropy=False https://github.com/cloudyr/aws.secrets"
             }
             post {
