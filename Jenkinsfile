@@ -24,8 +24,7 @@ pipeline {
             steps {
                sh "echo Deploying serverless lambdas via Cloudformation.."
                sh "cd py-lambda && ls -l"
-               //sh "serverless config credentials --provider aws --key $AWS_ACCESS_KEY_ID --secret $AWS_SECRET_ACCESS_KEY"
-               sh "serverless package --package artifacts"
+               sh "serverless config credentials --provider aws --key $AWS_ACCESS_KEY_ID --secret $AWS_SECRET_ACCESS_KEY"
                sh "serverless deploy" 
             }
         }
