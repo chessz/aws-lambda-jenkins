@@ -21,6 +21,12 @@ pipeline {
                  )
             }
         }
+        stage('Compile & Unit Test'){
+            steps {
+               sh "echo Compiling application..."
+               sh "cd py-lambda && python -m compileall ."
+            }
+        }
         stage('Build & Deploy lambdas'){
             steps {
                sh "echo Deploying serverless lambdas via Cloudformation.."
