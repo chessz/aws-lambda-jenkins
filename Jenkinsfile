@@ -21,9 +21,7 @@ pipeline {
                  )
             }
         }
-        stage('Compile & Unit Test'){
-            steps {
-               repo_name = scm.getUserRemoteConfigs()[0].getUrl().tokenize('/').last().split("\\.")[0]
+        stage('Compile & Unit Test'){   
                sh "echo Compiling application..."
                sh "echo $repo_name"
                sh "cd py-lambda && python -m compileall ."
@@ -32,7 +30,7 @@ pipeline {
         stage('Build & Deploy lambdas'){
             steps {
                sh "echo Deploying serverless lambdas via Cloudformation.."
-                sh "serverless config credentials --provider aws --key ${AWS_ACCESS_KEY_ID}  --secret ${AWS_SECRET_ACCESS_KEY} -o"
+               sh "serverless config credentials --provider aws --key ${AWS_ACCESS_KEY_ID}  --secret ${AWS_SECRET_ACCESS_KEY} -o"
                sh "cd py-lambda && serverless deploy"
             }
         }
@@ -43,7 +41,19 @@ pipeline {
         }
         stage('TruffleHog Scanning..') {
             steps {
-                sh "docker run --rm -v `pwd`:/proj dxa4481/trufflehog --regex --entropy=False https://github.com/cloudyr/aws.secrets"
+               // get repo URL
+               try{
+                  GIT_REPO_URL = null
+                  command = "grep -oP '(?<=url>)[^<]+' /var/lib/jenkins/jobs/${JOB_NAME}/config.xml"
+                  GIT_REPO_URL = sh(returnStdout: true, script: command).trim();
+                  echo "Detected Git Repo URL: ${GIT_REPO_URL}"  
+               }
+               catch(err){
+                  throw err
+                  error "Colud not find any Git repository for the job ${JOB_NAME}"
+               } 
+                
+               sh "docker run --rm -v `pwd`:/proj dxa4481/trufflehog --regex --entropy=False https://github.com/cloudyr/aws.secrets"
             }
             post {
                 success {
