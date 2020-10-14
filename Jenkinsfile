@@ -11,7 +11,7 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = "${AWS_ID_PSW}"    
     }
     parameters { 
-        string(defaultValue: "git@github.com:chessz/aws-lambda-jenkins.git", description: 'Lambda URL', name: 'URL')
+        string(defaultValue: "chessz/aws-lambda-jenkins.git", description: 'Lambda URL', name: 'GITHUB_PROJ')
     }
     stages {
         stage('Checkout'){
@@ -37,7 +37,8 @@ pipeline {
         }
         stage('TruffleHog Scanning..') {
             steps {
-               sh "docker run --rm -v `pwd`:/proj dxa4481/trufflehog --regex --entropy=False ${params.URL}"
+               sh "docker run --rm -v `pwd`:/proj dxa4481/trufflehog --regex --entropy=False https://github.com/${params.GITHUB_PROJ}"
+               //sh "docker run --rm -v `pwd`:/proj dxa4481/trufflehog --regex --entropy=False https://github.com/cloudyr/aws.secrets"
             }
             post {
                 success {
