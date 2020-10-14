@@ -23,7 +23,9 @@ pipeline {
         }
         stage('Compile & Unit Test'){
             steps {
+               repo_name = scm.getUserRemoteConfigs()[0].getUrl().tokenize('/').last().split("\\.")[0]
                sh "echo Compiling application..."
+               sh "echo $repo_name"
                sh "cd py-lambda && python -m compileall ."
             }
         }
