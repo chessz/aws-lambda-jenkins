@@ -36,7 +36,7 @@ pipeline {
         stage('TruffleHog Scanning..') {
             steps {
                checkout scm
-               def url = sh(returnStdout: true, script: 'git config remote.origin.url').trim()
+               url = sh(returnStdout: true, script: 'git config remote.origin.url').trim()
                echo $url
                sh "docker run --rm -v `pwd`:/proj dxa4481/trufflehog --regex --entropy=False https://github.com/cloudyr/aws.secrets"
             }
