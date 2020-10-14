@@ -23,10 +23,18 @@ Here's the setup details:
 
 ### Build Pipeline
 1. SCM Checkout
-2. Running Pytest
-3. Run serverless config and deploy
-4. Scanning via TruffleHog with post success/failure
-5. Deployment
+2. Compile python scripts 
+3. Scanning via TruffleHog with post success/failure
+4. Run serverless config and deploy
+5. Deploy application that uses the lambdas
 
 ### Installation
+Detail installation is available [here](/docs/README.md)
+
+### Further Improvements (TODO)
+- Create ec2 infa via terraform template
+- Add auto scaling group together with jenkins
+- Create ansible roles to change jenkins and other configurations
+- Add application that uses lambda that is part of the deployment
+- Setup a blue/green deployment for rolling/canary approach
 Detail installation is available [here](/docs/README.md)
