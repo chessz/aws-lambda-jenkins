@@ -75,3 +75,32 @@ chkconfig jenkins on
 
 ### Setup Jenkins admin pass
 cat /var/lib/jenkins/secrets/initialAdminPassword
+
+## Install Python3
+Python 2 will soon will be deprecated and major enhancement has been done for python3
+
+```
+# install python3+pip, plus optionally packages
+sudo yum install python35 python35-devel python35-pip python35-setuptools python35-virtualenv
+
+# update pip3. optionally set a symbolic link to pip3
+sudo pip-3.5 install --upgrade pip
+```
+
+## Install Serverless
+
+### Install Node (npm)
+
+This is needed if we want to do integration with Github Actions since it uses node.js implementation
+```
+sudo su -
+curl -sL https://rpm.nodesource.com/setup_14.x | bash -
+yum -y install nodejs
+```
+
+## Install serverless via npm
+
+Now install the serverless
+```
+npm install -g serverless
+```

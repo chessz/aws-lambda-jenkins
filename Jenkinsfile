@@ -6,8 +6,9 @@ pipeline {
         ansiColor('xterm')
     }
     environment {
-        AWS_ACCESS_KEY_ID = credentials('aws-secret-key-id')
-        AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
+        AWS_ID = credentials("AWS_ID")      
+        AWS_ACCESS_KEY_ID = "${AWS_ID_USR}"
+        AWS_SECRET_ACCESS_KEY = "${AWS_ID_PSW}"    
     }
     stages {
         stage('Checkout'){
@@ -18,6 +19,13 @@ pipeline {
                   credentialsId: 'jenkins',
                   branch: "add-creds"
                  )
+            }
+        }
+        stage('Build & Deploy lambdas'){
+            steps {
+               sh "echo Deploying serverless lambdas via Cloudformation.."
+                sh "serverless config credentials --provider aws --key ${AWS_ACCESS_KEY_ID}  --secret ${AWS_SECRET_ACCESS_KEY} -o"
+               sh "cd py-lambda && serverless deploy"
             }
         }
         stage('TruffleHog Docker Pull') {
