@@ -23,7 +23,8 @@ pipeline {
         stage('Build & Deploy lambdas'){
             steps {
                sh "echo Deploying serverless lambdas via Cloudformation.."
-                echo $AWS_ACCESS_KEY_ID "and" $AWS_SECRET_ACCESS_KEY
+               sh "echo $AWS_ACCESS_KEY_ID" 
+               sh "echo $AWS_SECRET_ACCESS_KEY"
                //sh "serverless config credentials --provider aws --key $AWS_ACCESS_KEY_ID --secret $AWS_SECRET_ACCESS_KEY -o && cd py-lambda && serverless deploy"
                sh "cd py-lambda && ls -l && serverless deploy" 
             }
