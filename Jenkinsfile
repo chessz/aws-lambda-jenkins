@@ -18,7 +18,7 @@ pipeline {
             steps {
               step([$class: 'WsCleanup'])
               git(
-                  url: 'git@github.com:chessz/aws-lambda-jenkins.git',
+                  url: 'git@github.com:chessz/aws-lambda-jenkins',
                   credentialsId: 'jenkins',
                   branch: "add-creds"
                  )
