@@ -15,7 +15,7 @@ pipeline {
               git(
                   url: 'git@github.com:chessz/aws-lambda-jenkins.git',
                   credentialsId: 'jenkins',
-                  branch: "${branch}"
+                  branch: "add-creds"
     )
             }
         }
