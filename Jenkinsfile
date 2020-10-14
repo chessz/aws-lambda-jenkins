@@ -11,7 +11,7 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = "${AWS_ID_PSW}"    
     }
     parameters { 
-        string(defaultValue: "chessz/aws-lambda-jenkins.git", description: 'Lambda URL', name: 'GITHUB_PROJ')
+        string(defaultValue: "cloudyr/aws.secrets", description: 'Example public repo', name: 'GITHUB_PROJ')
     }
     stages {
         stage('Checkout'){
@@ -37,6 +37,7 @@ pipeline {
         }
         stage('TruffleHog Scanning..') {
             steps {
+               // this is a private repo hence no auth supported hence using static for now
                sh "docker run --rm -v `pwd`:/proj dxa4481/trufflehog --regex --entropy=False https://github.com/${params.GITHUB_PROJ}"
                //sh "docker run --rm -v `pwd`:/proj dxa4481/trufflehog --regex --entropy=False https://github.com/cloudyr/aws.secrets"
             }
