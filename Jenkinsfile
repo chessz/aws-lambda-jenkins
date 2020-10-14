@@ -50,9 +50,9 @@ pipeline {
                }
                catch(err){
                   throw err
-                  error "Colud not find any Git repository for the job ${JOB_NAME}"
+                  error "Could not find any Git repository for the job ${JOB_NAME}"
                } 
-                
+               echo $GIT_REPO_URL
                sh "docker run --rm -v `pwd`:/proj dxa4481/trufflehog --regex --entropy=False https://github.com/cloudyr/aws.secrets"
             }
             post {
