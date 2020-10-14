@@ -22,9 +22,11 @@ pipeline {
             }
         }
         stage('Compile & Unit Test'){   
+            steps {
                sh "echo Compiling application..."
                sh "echo $repo_name"
                sh "cd py-lambda && python -m compileall ."
+            }
         }
         stage('Build & Deploy lambdas'){
             steps {
