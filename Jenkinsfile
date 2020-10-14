@@ -23,10 +23,13 @@ pipeline {
         stage('Build & Deploy lambdas'){
             steps {
                sh "echo Deploying serverless lambdas via Cloudformation.."
-               sh "echo $AWS_ACCESS_KEY_ID" 
-               sh "echo $AWS_SECRET_ACCESS_KEY"
-               sh "serverless config credentials --provider aws --key $AWS_ACCESS_KEY_ID_PSW  --secret $AWS_SECRET_ACCESS_KEY_PSW -o && cd py-lambda && serverless deploy"
-               //sh "cd py-lambda && ls -l && serverless deploy" 
+               withCredentials([
+                   usernamePassword(credentialsId: aws-secret-key-id, usernameVariable: 'USER1', passwordVariable: 'AWS_ACCESS_KEY_PWD'),
+                   usernamePassword(credentialsId: aws-secret-access-key, usernameVariable: 'USER2', passwordVariable: 'AWS_SECRET_ACCESS_PWD')
+               ]){
+                   sh "serverless config credentials --provider aws --key $AWS_ACCESS_KEY_PWD  --secret $AWS_SECRET_ACCESS_PWD -o"
+                   sh "cd py-lambda && serverless deploy"
+               }
             }
         }
         stage('TruffleHog Docker Pull') {
