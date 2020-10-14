@@ -32,9 +32,8 @@ Here's the setup details:
 Detail installation is available [here](/docs/README.md)
 
 ### Further Improvements (TODO)
-- Create ec2 infa via terraform template
+- Create ec2 infra via terraform template
 - Add auto scaling group together with jenkins
 - Create ansible roles to change jenkins and other configurations
 - Add application that uses lambda that is part of the deployment
 - Setup a blue/green deployment for rolling/canary approach
-Detail installation is available [here](/docs/README.md)
