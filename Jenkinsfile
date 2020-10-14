@@ -12,22 +12,22 @@ pipeline {
     stages {
         stage('Checkout'){
             steps {
+              step([$class: 'WsCleanup'])
               git(
                   url: 'git@github.com:chessz/aws-lambda-jenkins.git',
                   credentialsId: 'jenkins',
                   branch: "add-creds"
-    )
+                 )
             }
         }
         stage('TruffleHog Docker Pull') {
             steps {
-               step([$class: 'WsCleanup'])
                sh "docker pull dxa4481/trufflehog"
             }
         }
         stage('TruffleHog Scanning..') {
             steps {
-                sh "docker run --rm -v `pwd`:/proj dxa4481/trufflehog --regex --entropy=False https://github.com/dxa4481/truffleHog"
+                sh "docker run --rm -v `pwd`:/proj dxa4481/trufflehog --regex --entropy=False https://github.com/cloudyr/aws.secrets"
             }
             post {
                 success {
