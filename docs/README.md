@@ -40,6 +40,11 @@ To restart docker
 systemctl restart docker
 ```
 
+To assign a user to docker
+```
+usermod -a -G dockerroot faisal
+```
+
 ### Install Docker on Amazon Linux
 
 - To setup and install docker
