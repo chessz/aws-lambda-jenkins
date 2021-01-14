@@ -1,5 +1,45 @@
 ## Setup Docker
 
+### Install Docker on RHEL 7
+We're going to use the same default docker as provided by the RHEL subscription manager.
+```
+subscription-manager repos \
+--enable=rhel-7-server-rpms \
+--enable=rhel-7-server-extras-rpms \
+--enable=rhel-7-server-optional-rpms
+```
+
+Disable any docker-ce installation
+```
+yum-config-manager --disable docker-ce-stable
+```
+
+Installing required packages for docker
+```
+yum -y install lvm2 device-mapper \
+device-mapper-persistent-data \
+device-mapper-event \
+device-mapper-libs device-mapper-event-libs
+```
+
+Now install RHEL packaged docker
+```
+yum install -y docker device-mapper-libs device-mapper-event-libs
+```
+
+Start all services and Enable service after reboot
+```
+service docker start
+service nginx start
+chkconfig docker on
+chkconfig nginx on
+```
+
+To restart docker
+```
+systemctl restart docker
+```
+
 ### Install Docker on Amazon Linux
 
 - To setup and install docker
