@@ -1,6 +1,8 @@
 # Aim
 To showcase jenkins ci/cd with aws lamba integration and code scanning
 
+-- Please ddelete this line
+
 ## Summary Implementation
 Here's the setup details:
  - Jenkins: http://ec2-18-191-188-223.us-east-2.compute.amazonaws.com/ (Can register as a user)
